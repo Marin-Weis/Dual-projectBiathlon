@@ -98,4 +98,21 @@ dependencies {
     // androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     // debugImplementation(libs.androidx.compose.ui.tooling)
     // debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // Ktor server
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
+
+    // plugins
+    implementation(libs.ktor.call.logging)
+    implementation(libs.ktor.default.headers)
+    implementation(libs.ktor.cors)
+    implementation(libs.ktor.compression)
+    implementation(libs.ktor.content.negotiation)
+    implementation(libs.ktor.serialization.json)
+    implementation("com.google.zxing:core:3.5.3")
+
+
+    // logging
+    implementation(libs.logback)
 }
