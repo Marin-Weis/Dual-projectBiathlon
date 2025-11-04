@@ -20,7 +20,7 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/kanit"
+        android:fontFamily="@font/kanit_light"
         android:text="@string/connexion_page_title"
         android:textSize="40sp"
         android:textColor="@color/blanc"
@@ -33,7 +33,7 @@
 
     <EditText
         android:id="@+id/Email"
-        android:layout_width="380dp"
+        android:layout_width="480dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/kanit_light"
         android:hint="@string/connexion_page_email_input"
@@ -48,7 +48,7 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <View
-        android:layout_width="400dp"
+        android:layout_width="500dp"
         android:layout_height="2dp"
         android:background="#D9D9D9"
         app:layout_constraintTop_toBottomOf="@id/Email"
@@ -59,7 +59,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/passwordContainer"
-        android:layout_width="380dp"
+        android:layout_width="480dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/Email"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +87,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/oeil"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +97,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
-        android:layout_width="400dp"
+        android:id="@+id/Trait"
+        android:layout_width="500dp"
         android:layout_height="2dp"
         android:background="#D9D9D9"
         app:layout_constraintTop_toBottomOf="@id/passwordContainer"
@@ -104,5 +107,54 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rememberMeContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/Trait"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp">
+
+        <!-- Case à cocher -->
+        <CheckBox
+            android:id="@+id/rememberMeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- Texte à droite de la checkbox -->
+        <TextView
+            android:id="@+id/rememberMeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kanit_light"
+            android:text="@string/connexion_page_remember_me_button"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/rememberMeCheckBox"
+            app:layout_constraintTop_toTopOf="@id/rememberMeCheckBox"
+            app:layout_constraintBottom_toBottomOf="@id/rememberMeCheckBox"
+            android:layout_marginStart="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/connectionButton"
+        android:layout_width="400dp"
+        android:layout_height="45dp"
+        android:text="@string/connexion_page_button"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/kanit"
+        android:background="@drawable/btn_connexion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rememberMeContainer"
+        android:layout_marginTop="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
