@@ -25,7 +25,7 @@ class SessionViewModel : ViewModel() {
      */
     fun startSession(context: Context) {
         KtorServer.start(context.applicationContext)
-        val ip = Utils.getLocalIpAddress() ?: "localhost"
+        val ip = Utils.getLocalIpAddress() ?: "127.0.0.1"
         val url = "http://$ip:8080/student"
         _url.value = url
         _running.value = true

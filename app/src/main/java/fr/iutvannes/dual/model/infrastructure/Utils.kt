@@ -7,23 +7,27 @@ object Utils {
 
     /**
      * Renvoie l’adresse IP locale de la tablette
-     * Retourne null si aucune connexion réseau active.
-     * Permet de construire ensuite l'url http://ip:8080/student/
+     * Retourne null si aucune connexion réseau active --> on part sur localhost dans ce cas
+     * Permet de construire ensuite l'url du type http://ip:8080/student/
      */
     fun getLocalIpAddress(): String? {
         try {
             val interfaces = NetworkInterface.getNetworkInterfaces()
             for (iface in interfaces) {
-                if (!iface.isUp || iface.isLoopback) continue
+                if (!iface.isUp || iface.isLoopback) {
+                    continue
+                }
                 for (addr in iface.inetAddresses) {
                     if (addr is Inet4Address && !addr.isLoopbackAddress) {
-                        return addr.hostAddress
+                        val ip = addr.hostAddress
+                        if (!ip.startsWith("169.")) { // permet d'éviter les ip fantômes commencant par 169.x.x.x
+                            return ip
+                        }
                     }
                 }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        } catch (_: Exception) { }
         return null
     }
+
 }
