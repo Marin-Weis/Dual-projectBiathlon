@@ -2,8 +2,24 @@ package fr.iutvannes.dual.model.persistence
 
 import androidx.room.*
 
-
-@Entity("Resultat")
+@Entity(
+    tableName = "Resultat",
+    foreignKeys = [
+        ForeignKey(
+            entity = Eleve::class,
+            parentColumns = ["id_eleve"],
+            childColumns = ["id_eleve"],
+            onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = Seance::class,
+            parentColumns = ["id_seance"],
+            childColumns = ["id_seance"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [Index("id_eleve"), Index("id_seance")]
+)
 data class Resultat (
     @PrimaryKey(autoGenerate = true)
     var id_resultat: Int=0,
