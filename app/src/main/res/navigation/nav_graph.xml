@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/connexionFragment">
+
+    <!-- Page de connexion -->
+    <fragment
+        android:id="@+id/connexionFragment"
+        android:name="fr.iutvannes.dual.controller.ConnexionFragment"
+        android:label="Connexion">
+
+        <!-- Action vers la page d'inscription -->
+        <action
+            android:id="@+id/action_connexionFragment_to_inscriptionFragment"
+            app:destination="@id/inscriptionFragment" />
+    </fragment>
+
+    <!-- Page d'inscription -->
+    <fragment
+        android:id="@+id/inscriptionFragment"
+        android:name="fr.iutvannes.dual.controller.InscriptionFragment"
+        android:label="Inscription">
+
+        <!-- Action vers la page de connexion -->
+        <action
+            android:id="@+id/action_inscriptionFragment_to_connexionFragment"
+            app:destination="@id/connexionFragment" />
+    </fragment>
+</navigation>

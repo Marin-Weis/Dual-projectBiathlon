@@ -123,4 +123,9 @@ dependencies {
 
     // logging
     implementation(libs.logback)
+
+
+    // --- NAVIGATION (pour findNavController, NavHostFragment, nav_graph, etc.) ---
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
 }
