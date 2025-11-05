@@ -17,8 +17,8 @@ import fr.iutvannes.dual.DAO.SeanceDAO
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun eleveDao(): EleveDAO
-    abstract fun profDao(): ProfDAO
+    abstract fun EleveDao(): EleveDAO
+    abstract fun profDAO() : ProfDAO
     abstract fun resultatDao(): ResultatDAO
     abstract fun seanceDao(): SeanceDAO
 }

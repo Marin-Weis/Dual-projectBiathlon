@@ -18,6 +18,9 @@ interface ProfDAO {
     @Query("SELECT * FROM Prof WHERE id_prof = :idProf")
     suspend fun getProfById(idProf: Int): Prof?
 
+    @Query("SELECT * FROM Prof WHERE email = :email")
+    suspend fun getProfByEmail(email: String): Prof?
+
     @Update
     suspend fun update(prof: Prof): Int
 }
