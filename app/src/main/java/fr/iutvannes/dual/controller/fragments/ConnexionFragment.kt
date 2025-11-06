@@ -1,4 +1,4 @@
-package fr.iutvannes.dual.controller
+package fr.iutvannes.dual.controller.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.room.Room
 import fr.iutvannes.dual.R
 import fr.iutvannes.dual.model.database.AppDatabase
 import androidx.lifecycle.lifecycleScope
-import fr.iutvannes.dual.MainActivity
+import fr.iutvannes.dual.controller.MainActivity
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -86,6 +86,15 @@ class ConnexionFragment : Fragment() {
                         Toast.makeText(requireContext(), "Cet email n'est pas enregistré", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), "Connexion réussie !", Toast.LENGTH_SHORT).show()
+                        if (rememberMe.isChecked) {
+                            editor.putString("email", emailInput.text.toString())
+                            editor.putString("password", passwordInput.text.toString()) // TODO hash password
+                            editor.putBoolean("rememberMe", true)
+                            editor.apply()
+                        } else {
+                            editor.clear()
+                            editor.apply()
+                        }
                         // Navigation vers MainActivity
                         // Intent permet de passer d'une activité à une autre avec le contexte et la classe de l'activité cible
                         val intent = Intent(requireContext(), MainActivity::class.java)
@@ -96,28 +105,8 @@ class ConnexionFragment : Fragment() {
             }
         }
 
-        rememberMe.setOnClickListener {
-            if (rememberMe.isChecked) {
-                // TODO enregistrer les infos
-            } else {
-                // TODO ne pas enregistrer les infos
-                        if (rememberMe.isChecked) {
-                            editor.putString("email", emailInput.text.toString())
-                            editor.putString("password", passwordInput.text.toString()) // TODO hash password
-                            editor.putBoolean("rememberMe", true)
-                            editor.apply()
-                        } else {
-                            editor.clear()
-                            editor.apply()
-                        }
-                        findNavController().navigate(R.id.action_connexionFragment_to_tableauDeBordFragment)
-                    }
-                }
-            }
-        }
-
         inscriptionLien.setOnClickListener {
-            findNavController().navigate(R.id.action_connexionFragment_to_inscriptionFragment)
+            //TODO changement de fragment
         }
 
         forgottenPassword.setOnClickListener {

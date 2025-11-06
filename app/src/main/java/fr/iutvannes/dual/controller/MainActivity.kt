@@ -1,4 +1,4 @@
-package fr.iutvannes.dual
+package fr.iutvannes.dual.controller
 
 import android.os.Bundle
 import android.view.View // Import pour gérer la visibilité (View.VISIBLE, View.GONE)
@@ -10,7 +10,8 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
-import fr.iutvannes.dual.controller.ConnexionFragment
+import fr.iutvannes.dual.R
+import fr.iutvannes.dual.controller.fragments.ConnexionFragment
 import fr.iutvannes.dual.controller.fragments.ClassesFragment
 import fr.iutvannes.dual.controller.fragments.ProfilFragment // Assurez-vous d'importer vos fragments
 import fr.iutvannes.dual.controller.fragments.TableauDeBordFragment
