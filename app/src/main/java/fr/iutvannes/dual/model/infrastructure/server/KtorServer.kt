@@ -1,11 +1,12 @@
 package fr.iutvannes.dual.infrastructure.server
 
 import android.content.Context
+import android.util.Log
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
-import io.ktor.server.netty.*
+import io.ktor.server.cio.*
 
 import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.defaultheaders.*
@@ -42,9 +43,11 @@ object KtorServer {
     private lateinit var appContext: Context
 
     fun start(context: Context, port: Int = 8080, wait: Boolean = false) {
-        if (engine != null) return
+        if (engine != null) {
+            return
+        }
         appContext = context.applicationContext
-        engine = embeddedServer(Netty, host = "0.0.0.0", port = port) {
+        engine = embeddedServer(CIO, host = "0.0.0.0", port = port) {
             module(appContext)
         }.also { it.start(wait = wait) }
     }
@@ -55,16 +58,18 @@ object KtorServer {
     }
 }
 
-private fun contentTypeFor(path: String): ContentType =
-    when {
-        path.endsWith(".html", true) -> ContentType.Text.Html
-        path.endsWith(".css", true)  -> ContentType.Text.CSS
-        path.endsWith(".js", true)   -> ContentType.Application.JavaScript
-        path.endsWith(".svg", true)  -> ContentType.Image.SVG
-        path.endsWith(".png", true)  -> ContentType.Image.PNG
-        path.endsWith(".jpg", true) || path.endsWith(".jpeg", true) -> ContentType.Image.JPEG
-        else -> ContentType.Application.OctetStream
-    }
+// helper MIME
+private fun contentTypeFor(path: String): ContentType = when (path.substringAfterLast('.', "")) {
+    "html" -> ContentType.Text.Html
+    "css"  -> ContentType("text", "css")
+    "js"   -> ContentType.Application.JavaScript
+    "png"  -> ContentType.Image.PNG
+    "jpg", "jpeg" -> ContentType.Image.JPEG
+    "svg"  -> ContentType.Image.SVG
+    "gif"  -> ContentType.Image.GIF
+    "ico"  -> ContentType("image", "x-icon")
+    else   -> ContentType.Application.OctetStream
+}
 
 /**
  * Modules Ktor
@@ -98,15 +103,25 @@ fun Application.module(appContext: Context) {
 
         // UI élève depuis assets/student
         get("/student") {
+            call.respondRedirect("/student/", permanent = false)
+        }
+
+        get("/student/") {
             val bytes = appContext.assets.open("student/index.html").use { it.readBytes() }
             call.respondBytes(bytes, contentType = ContentType.Text.Html)
         }
-        get("/student/{...}") {
-            val rest = call.parameters.getAll("...")?.joinToString("/") ?: "index.html"
+        get("/student/{path...}") {
+            val segments = call.parameters.getAll("path") ?: emptyList()
+            val rest = if (segments.isEmpty()) "index.html" else segments.joinToString("/")
             val p = "student/$rest"
-            runCatching { appContext.assets.open(p).use { it.readBytes() } }
-                .onSuccess { call.respondBytes(it, contentTypeFor(p)) }
-                .onFailure { call.respond(HttpStatusCode.NotFound, "Fichier introuvable: $p") }
+
+            runCatching {
+                appContext.assets.open(p).use { it.readBytes() }
+            }.onSuccess { bytes ->
+                call.respondBytes(bytes, contentType = contentTypeFor(p))
+            }.onFailure {
+                call.respond(HttpStatusCode.NotFound, "Fichier introuvable: $p")
+            }
         }
 
         // Reçoit les événements des élèves

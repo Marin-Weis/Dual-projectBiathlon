@@ -11,7 +11,6 @@ composeBom = "2024.09.00"
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
 ktor = "3.0.0"
-logback = "1.5.6"
 filamentAndroid = "1.17.1"
 
 [libraries]
@@ -39,7 +38,6 @@ ktor-cors = { module = "io.ktor:ktor-server-cors-jvm", version.ref = "ktor" }
 ktor-compression = { module = "io.ktor:ktor-server-compression-jvm", version.ref = "ktor" }
 ktor-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktor" }
 ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm", version.ref = "ktor" }
-logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 filament-android = { group = "com.google.ar.sceneform", name = "filament-android", version.ref = "filamentAndroid" }
 
 [plugins]

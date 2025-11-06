@@ -4,9 +4,12 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
 
         <Button
             android:id="@+id/launchASession"
@@ -16,14 +19,16 @@
             android:textSize="40sp"
             android:textColor="@color/blanc"
             android:layout_gravity="center"
-            android:background="@drawable/rounded_button_background">
+            android:background="@drawable/rounded_button_background"
+            android:elevation="4dp">
         </Button>
 
         <ImageView
             android:id="@+id/qrCodeView"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="24dp"
+            android:visibility="gone">
         </ImageView>
 
         <TextView
@@ -31,9 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textSize="16sp">
+            android:textSize="16sp"
+            android:visibility="gone">
         </TextView>
 
-    </FrameLayout>
+    </LinearLayout>
 
 </ScrollView>

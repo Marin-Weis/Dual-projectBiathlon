@@ -1,12 +1,14 @@
 package fr.iutvannes.dual.controller.fragments
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,10 +39,15 @@ class TableauDeBordFragment : Fragment(R.layout.fragment_tableau_de_bord) {
         }
 
         val qrCode = view.findViewById<ImageView>(R.id.qrCodeView)
+        qrCode.setBackgroundColor(Color.DKGRAY) // DEBUG
         val sessionUrl = view.findViewById<TextView>(R.id.textUrl)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             sessionViewModel.url.collect { url ->
                 if (url != null) {
+                    // on s'assure que le QR code n'apparaisse pas sous le bouton -> invisible
+                    Toast.makeText(requireContext(), "URL: $url", Toast.LENGTH_LONG).show()
+                    qrCode.visibility = View.VISIBLE
+                    sessionUrl.visibility = View.VISIBLE
                     sessionUrl.text = url
                     qrCode.setImageBitmap(genererQRCode(url))
                 }

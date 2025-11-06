@@ -53,80 +53,51 @@ android {
 }
 
 dependencies {
-    // --- Dépendances de base pour une application non-Compose ---
+    // Base UI
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat) // Essentiel pour les thèmes (comme AppCompatActivity)
-
-    // --- AJOUT NÉCESSAIRE ---
-    // C'est cette ligne qui ajoute Theme.MaterialComponents...
+    implementation(libs.androidx.appcompat)
     implementation("com.google.android.material:material:1.11.0")
     implementation(libs.androidx.constraintlayout)
     implementation(libs.filament.android)
 
-    // --- Dépendances pour les tests ---
+    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // --- VOS DÉPENDANCES CONSERVÉES ---
-
-    // --- ROOM (Base de données SQLite) ---
+    // Room
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
-    // --- KTOR (Serveur HTTP local) ---
-    implementation("io.ktor:ktor-server-core:3.0.0")
-    implementation("io.ktor:ktor-server-netty:3.0.0")
-    implementation("io.ktor:ktor-server-content-negotiation:3.0.0")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.0")
+    // Ktor Server (CIO, pas de Netty)
+    implementation("io.ktor:ktor-server-core-jvm:3.0.0")
+    implementation("io.ktor:ktor-server-cio-jvm:3.0.0")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm:3.0.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:3.0.0")
+    implementation("io.ktor:ktor-server-call-logging-jvm:3.0.0")
+    implementation("io.ktor:ktor-server-default-headers-jvm:3.0.0")
+    implementation("io.ktor:ktor-server-cors-jvm:3.0.0")
+    implementation("io.ktor:ktor-server-compression-jvm:3.0.0")
 
-    // --- COROUTINES (Tâches asynchrones Kotlin) ---
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
-    // --- LOGGING (Pour le débogage serveur) ---
-    implementation("ch.qos.logback:logback-classic:1.4.14")
+    // Logging (UN SEUL backend)
+    implementation("org.slf4j:slf4j-simple:2.0.13")
 
-    // --- Dépendance KTX pour les fragments ---
-    implementation("androidx.fragment:fragment-ktx:1.6.0")
+    // Fragments KTX
+    implementation("androidx.fragment:fragment-ktx:1.8.4") // (1.6.0 est ancien)
 
-    // --- RETIRÉ : Dépendances inutiles de Jetpack Compose ---
-    // implementation(libs.androidx.lifecycle.runtime.ktx) // Souvent utilisé avec Compose, mais peut être gardé si besoin
-    // implementation(libs.androidx.activity.compose)
-    // implementation(platform(libs.androidx.compose.bom))
-    // implementation(libs.androidx.compose.ui)
-    // implementation(libs.androidx.compose.ui.graphics)
-    // implementation(libs.androidx.compose.ui.tooling.preview)
-    // implementation(libs.androidx.compose.material3)
-    // androidTestImplementation(platform(libs.androidx.compose.bom))
-    // androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    // debugImplementation(libs.androidx.compose.ui.tooling)
-    // debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-    // Ktor server
-    implementation(libs.ktor.server.core)
-    implementation(libs.ktor.server.netty)
-
-    // plugins
-    implementation(libs.ktor.call.logging)
-    implementation(libs.ktor.default.headers)
-    implementation(libs.ktor.cors)
-    implementation(libs.ktor.compression)
-    implementation(libs.ktor.content.negotiation)
-    implementation(libs.ktor.serialization.json)
-
-    // QR CODE
+    // QR Code
     implementation("com.google.zxing:core:3.5.3")
 
-    // ViewModel
+    // Lifecycle / ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
 
-    // logging
-    implementation(libs.logback)
-
-
-    // --- NAVIGATION (pour findNavController, NavHostFragment, nav_graph, etc.) ---
+    // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
 }
+
