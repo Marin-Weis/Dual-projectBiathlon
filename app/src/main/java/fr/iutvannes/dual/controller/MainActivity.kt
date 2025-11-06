@@ -1,4 +1,4 @@
-package fr.iutvannes.dual
+package fr.iutvannes.dual.controller
 
 import android.os.Bundle
 import android.view.View // Import pour gérer la visibilité (View.VISIBLE, View.GONE)
@@ -10,8 +10,11 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
+import fr.iutvannes.dual.R
+import fr.iutvannes.dual.controller.fragments.ConnexionFragment
 import fr.iutvannes.dual.controller.fragments.ClassesFragment
-import fr.iutvannes.dual.controller.fragments.ProfilFragment // Assurez-vous d'importer vos fragments
+import fr.iutvannes.dual.controller.fragments.InscriptionFragment
+import fr.iutvannes.dual.controller.fragments.ProfilFragment
 import fr.iutvannes.dual.controller.fragments.TableauDeBordFragment
 
 class MainActivity : AppCompatActivity() {
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         // --- ÉTAT INITIAL ---
         if (savedInstanceState == null) {
-            showFragment(TableauDeBordFragment()) // On commence sur le tableau de bord
+            showFragment(InscriptionFragment()) // On commence sur le tableau de bord
         }
 
     }
@@ -93,6 +96,17 @@ class MainActivity : AppCompatActivity() {
                 topBarContainer.visibility = View.GONE
                 navBarContainer.visibility = View.GONE
             }
+
+            is ConnexionFragment -> {
+                topBarContainer.visibility = View.GONE
+                navBarContainer.visibility = View.GONE
+            }
+
+            is InscriptionFragment -> {
+                topBarContainer.visibility = View.GONE
+                navBarContainer.visibility = View.GONE
+            }
+
             // Pour tout autre fragment (Connexion, Inscription...), la barre sera cachée par défaut
             else -> {
                 navBarContainer.visibility = View.GONE
@@ -101,7 +115,14 @@ class MainActivity : AppCompatActivity() {
 
         // Affiche le fragment passé en paramètre
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment) // Correction de l'ID
+            .setCustomAnimations(
+                R.anim.slide_in_right, // entrée
+                R.anim.fade_out,       // sortie
+                R.anim.fade_in,        // retour
+                R.anim.slide_out_right // retour inverse
+            )
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 

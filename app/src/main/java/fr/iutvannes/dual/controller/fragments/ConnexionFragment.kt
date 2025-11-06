@@ -1,4 +1,4 @@
-package fr.iutvannes.dual.controller
+package fr.iutvannes.dual.controller.fragments
 
 import android.os.Bundle
 import android.text.InputType
@@ -11,6 +11,7 @@ import androidx.room.Room
 import fr.iutvannes.dual.R
 import fr.iutvannes.dual.model.database.AppDatabase
 import androidx.lifecycle.lifecycleScope
+import fr.iutvannes.dual.controller.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,7 +36,8 @@ class ConnexionFragment : Fragment() {
         val rememberMe = view.findViewById<CheckBox>(R.id.rememberMeCheckBox)
         val forgottenPassword = view.findViewById<TextView>(R.id.forgottenPassword)
 
-
+        val sharedPref = requireContext().getSharedPreferences("loginPrefs", 0)
+        val editor = sharedPref.edit()
 
         val db = Room.databaseBuilder(
             requireContext(),
@@ -43,6 +45,16 @@ class ConnexionFragment : Fragment() {
             "dual.db"
         ).build()
         val dao = db.profDAO()
+
+        val savedEmail = sharedPref.getString("email", "")
+        val savedPassword = sharedPref.getString("password", "")
+        val isRemembered = sharedPref.getBoolean("rememberMe", false)
+
+        if (isRemembered) {
+            emailInput.setText(savedEmail)
+            passwordInput.setText(savedPassword)
+            rememberMe.isChecked = true
+        }
 
         oeilIcon.setOnClickListener {
             passwordVisible = !passwordVisible
@@ -72,22 +84,23 @@ class ConnexionFragment : Fragment() {
                         Toast.makeText(requireContext(), "Cet email n'est pas enregistré", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), "Connexion réussie !", Toast.LENGTH_SHORT).show()
-                        // TODO changement de fragment
+                        if (rememberMe.isChecked) {
+                            editor.putString("email", emailInput.text.toString())
+                            editor.putString("password", passwordInput.text.toString()) // TODO hash password
+                            editor.putBoolean("rememberMe", true)
+                            editor.apply()
+                        } else {
+                            editor.clear()
+                            editor.apply()
+                        }
+                        (activity as? MainActivity)?.showFragment(TableauDeBordFragment())
                     }
                 }
             }
         }
 
         inscriptionLien.setOnClickListener {
-            // TODO changement de fragment
-        }
-
-        rememberMe.setOnClickListener {
-            if (rememberMe.isChecked) {
-                // TODO enregistrer les infos
-            } else {
-                // TODO ne pas enregistrer les infos
-            }
+            (activity as? MainActivity)?.showFragment(InscriptionFragment())
         }
 
         forgottenPassword.setOnClickListener {
