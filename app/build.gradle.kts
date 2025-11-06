@@ -60,6 +60,7 @@ dependencies {
     // --- AJOUT NÉCESSAIRE ---
     // C'est cette ligne qui ajoute Theme.MaterialComponents...
     implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.android.material:material:1.12.0")
     implementation(libs.androidx.constraintlayout)
     implementation(libs.filament.android)
 

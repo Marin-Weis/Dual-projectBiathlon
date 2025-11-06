@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Thème principal de l'application utilisant vos couleurs -->
-    <style name="Theme.BiathlonApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.BiathlonApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Couleur primaire (utilisée pour la barre d'action, les boutons, etc.) -->
         <item name="colorPrimary">@color/bleu</item>
         <!-- Variante plus foncée de la couleur primaire (utilisée pour la barre de statut) -->
