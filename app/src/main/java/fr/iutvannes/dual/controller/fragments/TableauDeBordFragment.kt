@@ -14,7 +14,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
-import fr.iutvannes.dual.MainActivity
 import fr.iutvannes.dual.R
 import fr.iutvannes.dual.controller.viewmodel.SessionViewModel
 
@@ -23,7 +22,6 @@ import fr.iutvannes.dual.controller.viewmodel.SessionViewModel
  */
 class TableauDeBordFragment : Fragment(R.layout.fragment_tableau_de_bord) {
 
-    // On récupère le ViewModel partagé avec l'Activity (MainActivity)
     private val sessionViewModel: SessionViewModel by activityViewModels()
 
     /**
@@ -44,7 +42,6 @@ class TableauDeBordFragment : Fragment(R.layout.fragment_tableau_de_bord) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             sessionViewModel.url.collect { url ->
                 if (url != null) {
-                    // on s'assure que le QR code n'apparaisse pas sous le bouton -> invisible
                     Toast.makeText(requireContext(), "URL: $url", Toast.LENGTH_LONG).show()
                     qrCode.visibility = View.VISIBLE
                     sessionUrl.visibility = View.VISIBLE

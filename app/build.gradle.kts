@@ -80,7 +80,7 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
-    // Ktor Server (CIO, pas de Netty)
+    // Ktor Server CIO
     implementation("io.ktor:ktor-server-core-jvm:3.0.0")
     implementation("io.ktor:ktor-server-cio-jvm:3.0.0")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:3.0.0")
@@ -93,11 +93,11 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
-    // Logging (UN SEUL backend)
+    // Logging
     implementation("org.slf4j:slf4j-simple:2.0.13")
 
     // Fragments KTX
-    implementation("androidx.fragment:fragment-ktx:1.8.4") // (1.6.0 est ancien)
+    implementation("androidx.fragment:fragment-ktx:1.8.4")
 
     // QR Code
     implementation("com.google.zxing:core:3.5.3")
