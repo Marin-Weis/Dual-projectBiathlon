@@ -109,5 +109,9 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
+
+    //Hash du password
+    implementation("at.favre.lib:bcrypt:0.10.2")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 }
 

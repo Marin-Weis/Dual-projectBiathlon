@@ -11,7 +11,10 @@ import androidx.room.Room
 import fr.iutvannes.dual.R
 import fr.iutvannes.dual.model.database.AppDatabase
 import androidx.lifecycle.lifecycleScope
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import fr.iutvannes.dual.controller.MainActivity
+import fr.iutvannes.dual.model.utils.PasswordUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,7 +39,17 @@ class ConnexionFragment : Fragment() {
         val rememberMe = view.findViewById<CheckBox>(R.id.rememberMeCheckBox)
         val forgottenPassword = view.findViewById<TextView>(R.id.forgottenPassword)
 
-        val sharedPref = requireContext().getSharedPreferences("loginPrefs", 0)
+        val masterKey = MasterKey.Builder(requireContext())
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        val sharedPref = EncryptedSharedPreferences.create(
+            requireContext(),
+            "loginPrefs",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
         val editor = sharedPref.edit()
 
         val db = Room.databaseBuilder(
@@ -69,6 +82,7 @@ class ConnexionFragment : Fragment() {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
+
             if (email.isEmpty()) {
                 Toast.makeText(requireContext(), "Veuillez entrer votre email", Toast.LENGTH_SHORT).show()
             } else if (password.isEmpty()) {
@@ -76,17 +90,17 @@ class ConnexionFragment : Fragment() {
             } else {
                 // On lance une coroutine pour accéder à la DB
                 lifecycleScope.launch {
-                    val prof = withContext(Dispatchers.IO) { // Dispatchers.IO pour le thread de la DB
+                    val prof = withContext(Dispatchers.IO) {
                         dao.getProfByEmail(email)
                     }
 
                     if (prof == null) {
                         Toast.makeText(requireContext(), "Cet email n'est pas enregistré", Toast.LENGTH_SHORT).show()
-                    } else {
+                    } else if(PasswordUtils.verifyPassword(password, prof.password)){
                         Toast.makeText(requireContext(), "Connexion réussie !", Toast.LENGTH_SHORT).show()
                         if (rememberMe.isChecked) {
                             editor.putString("email", emailInput.text.toString())
-                            editor.putString("password", passwordInput.text.toString()) // TODO hash password
+                            editor.putString("password", passwordInput.text.toString())
                             editor.putBoolean("rememberMe", true)
                             editor.apply()
                         } else {

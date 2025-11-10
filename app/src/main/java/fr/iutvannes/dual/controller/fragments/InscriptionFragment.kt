@@ -16,6 +16,7 @@ import fr.iutvannes.dual.model.persistence.Prof
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import fr.iutvannes.dual.model.utils.PasswordUtils
 
 class InscriptionFragment : Fragment() {
 
@@ -101,12 +102,12 @@ class InscriptionFragment : Fragment() {
                             nom = nom,
                             prenom = prenom,
                             email = email,
-                            password = password // TODO: à hasher dans une version future
+                            password = PasswordUtils.hashPassword(password)
                         )
                         dao.insert(prof)
                     }
 
-                    Toast.makeText(requireContext(), "Inscription réussie 🎉", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Inscription réussie", Toast.LENGTH_SHORT).show()
 
                     // Retour vers la page de connexion
                     (activity as? MainActivity)?.showFragment(ConnexionFragment())

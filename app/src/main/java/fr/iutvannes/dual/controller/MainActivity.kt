@@ -10,6 +10,8 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import fr.iutvannes.dual.R
 import fr.iutvannes.dual.controller.fragments.ConnexionFragment
 import fr.iutvannes.dual.controller.fragments.ClassesFragment
@@ -66,9 +68,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Récupère les SharedPreferences sécurisées
+        val masterKey = MasterKey.Builder(this)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        val sharedPref = EncryptedSharedPreferences.create(
+            this,
+            "loginPrefs",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        val isRemembered = sharedPref.getBoolean("rememberMe", false)
+
         // --- ÉTAT INITIAL ---
         if (savedInstanceState == null) {
-            showFragment(InscriptionFragment()) // On commence sur le tableau de bord
+            if (isRemembered) {
+                showFragment(TableauDeBordFragment())
+            } else {
+                showFragment(ConnexionFragment())
+            }
         }
 
     }
