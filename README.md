@@ -116,7 +116,7 @@ Communication uses:
 ### **Development Team – IUT de Vannes (BUT Informatique)**  
 
 - **Matthieu Gouelo**  
-  *Scrum Master (Chef de projet) & FullStack Developer*  
+  *Scrum Master & FullStack Developer*  
 
 - **Marin Weis**  
   *Responsable Communication & FullStack Developer*  
