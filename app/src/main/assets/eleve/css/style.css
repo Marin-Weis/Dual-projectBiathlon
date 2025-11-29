@@ -1,0 +1,152 @@
+/* Palette */
+:root {
+    --black: #202122;
+    --grey: #989Ca0;
+    --blue: #303586;
+    --night-blue: #1c1e4e;
+    --white: #e5e5e5;
+}
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background: var(--blue);
+  color: var(--black);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#container {
+  text-align: center;
+  background: var(--white);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  width: 90%;
+  max-width: 450px;
+  margin: 40px
+}
+
+header h1 {
+  font-size: 1.8rem;
+  color: var(--night-blue);
+  margin-bottom: 0.5em;
+}
+
+header p {
+  color: var(--blue);
+  margin-bottom: 1.5em;
+}
+
+footer .info {
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+.button {
+  background: #303586;
+  width: 100%;
+  max-width: 200px;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 0;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: #1C1E4E;
+  transform: translateY(-3px);
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#chrono {
+  font-size: 40px;
+  margin-bottom: 30px;
+  color: var(--night-blue);
+}
+
+#resultat {
+  color: var(--blue);
+  margin-top: 1.5em;
+}
+
+#tours p {
+  display: none;
+}
+
+#tours {
+  font-size: 0.85rem;
+  color: var(--black);
+  text-align: center;
+  font-weight: 600;
+}
+
+#tirs p {
+  font-size: 0.85rem;
+  color: var(--black);
+  font-weight: 600;
+}
+
+#tirs input {
+  width: 100px;
+  font-size: 1em;
+  text-align: center;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid var(--grey);
+}
+
+#resultats {
+  display: none;
+}
+
+
+/* Tablettes et téléphones */
+@media (max-width: 768px) {
+  #container {
+    padding: 50px;
+  }
+
+  #chrono {
+    font-size: 30px;
+  }
+
+  .button {
+    width: 160px;
+    font-size: 0.9rem;
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  #container {
+    padding: 30px;
+  }
+
+  #chrono {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+
+  #buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button {
+    width: 100%;
+    max-width: 300px;
+    font-size: 0.85rem;
+  }
+}
