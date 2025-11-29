@@ -5,6 +5,12 @@ The project is developed in collaboration between the **IUT de Vannes** and the 
 
 The goal is to provide a **fully offline, real-time, local, and autonomous Android application** capable of managing student performance during biathlon sessions combining **running**, **laser shooting**, **VMA calculations**, and **penalty laps**.
 
+## 📄 Project Documentation (Notion)
+
+The full project documentation, including specifications, workflows, mockups, and meeting notes, is available on Notion:
+
+➡️ **Notion Workspace:** [Access the project documentation](https://www.notion.so/glenpotay/SAE-Biathlon-Dual-281e9d17fd43801ba251e12c31ab926d?source=copy_link)
+
 ---
 
 ## 📘 1. Project Overview
