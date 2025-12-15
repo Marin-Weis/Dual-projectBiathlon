@@ -1,4 +1,4 @@
-# 🟦 CyBLE – Biathlon Cycle Evaluation App (Android / Kotlin)
+# 🟦 Dual – Biathlon Cycle Evaluation App (Android / Kotlin)
 
 CyBLE (Cycle de Biathlon en Éducation Physique) is a mobile application designed to support Physical Education (PE) teachers during **biathlon evaluation sessions** in 4th grade.  
 The project is developed in collaboration between the **IUT de Vannes** and the **Collège Notre-Dame-La-Blanche (Theix-Noyalo)**.
